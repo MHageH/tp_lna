@@ -5,10 +5,10 @@
 \contentsline {subsection}{\numberline {1.2}Dimensionnement du transistor et calcul du r\'eseau d'entr\'ee}{3}{subsection.1.2}
 \contentsline {section}{\numberline {2}Partie pratique}{4}{section.2}
 \contentsline {subsection}{\numberline {2.1}Simulation DC du transistor seul}{4}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Adaptation de la partie r\'eelle de l'imp\'edance d'entr\'ee}{4}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Polarisation}{4}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Gain}{4}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Adaptation de la partie imaginaire de l'imp\'edance d'entr\'ee du LNA}{4}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Facteur de bruit}{4}{subsection.2.6}
-\contentsline {section}{Conclusion}{5}{section*.4}
-\contentsline {section}{R\'ef\'erences}{5}{section*.4}
+\contentsline {subsection}{\numberline {2.2}Adaptation de la partie r\'eelle de l'imp\'edance d'entr\'ee}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Polarisation}{8}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Gain}{9}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Adaptation de la partie imaginaire de l'imp\'edance d'entr\'ee du LNA}{11}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Facteur de bruit}{11}{subsection.2.6}
+\contentsline {section}{Conclusion}{12}{section*.16}
+\contentsline {section}{R\'ef\'erences}{12}{section*.16}

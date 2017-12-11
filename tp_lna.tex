@@ -170,7 +170,7 @@ doit \^etre adapt\'e \`a $50 \Omega$ :
 \]
 
 \clearpage
-\textbf{Calcul de la tension de d\'epassage $V_{OD}$, $L_i$:}
+\textbf{Calcul de la tension de d\'epassage $V_{OD}$, $L_i$:}\\
 La transductance du MOSFET poss\`ede plusieurs expressions :
 \[
   g_m = 2\sqrt{K_n \bigg( \frac{W}{L} \bigg)_{(M_1)} I_{DS0}} = \frac{2 I_{DS0}}{V_{gs} - V_{t}}
@@ -191,10 +191,194 @@ Ce qui nous donne :
 \section{Partie pratique}
 \subsection{Simulation DC du transistor seul}
 
+On fait la simulation DC du transistor tout seul, cela nous donne :
+
+\begin{figure}[!htb]
+  \begin{subfigure}[t]{.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{Q1-schematic.png}
+      \label{fig:dctransistor}
+  \end{subfigure}%
+  \begin{subfigure}[t]{.6\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{Q1-IDS_VGS.png}
+    \label{fig:dctransistor-sim}
+  \end{subfigure}%
+  \caption{Sch\'ema et Simulation du circuit $I_{DS} = f(V_{gs})$}
+  \label{fig:DCtransistor-simulation}
+\end{figure}
+
+On trouve que pour $I_{DS0} = 1.5 mA$ indiqu\'e dans le cahier de charge, on prend
+$V_{gs} = 871.25 mV$.
+
+En effectuant une impression des r\'esultats pour les valeurs de la simulation DC (operating point) :
+\begin{itemize} \itemsep -3pt
+  \item $V_{gs} = 0.861 V$
+  \item $V_t = 0.5563 V$
+  \item $V_{OD} = V_{gs} - V_{t} = 0.308V$
+  \item $g_m = 7.796 m\Omega$
+  \item $I_{ds} = 1.5 mA$
+  \item $C_{gs} = 46.37 nF$
+\end{itemize}
+
+\clearpage
+
 \subsection{Adaptation de la partie r\'eelle de l'imp\'edance d'entr\'ee}
 
+On r\'ealise le sch\'ema suivant pour v\'erifier l'adaptation en entr\'ee :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.35]{Q2-schematic-adaptation.png}
+  \caption{Sch\'ema de l'amplificateur faible bruit pour l'adaptation en entr\'ee}
+  \label{lna-adaptation}
+\end{center}
+\end{figure}
+
+On effectue une simulation SP en entr\'ee en ins\'erant un port, et on cherche \`a trouver les
+param\`etres $S_{11}$ en Z-Smith, DB20 et $Re\{Z_{11}\}$.
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[width=\linewidth]{Q2-S11-Smith-notadapted.png}
+  \caption{Abaque de Smith pour $S_{11}$ en entr\'ee }
+  \label{S11-nonadapted}
+\end{center}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!htb]
+  \begin{subfigure}[t]{.5\linewidth}
+      \centering
+      \includegraphics[width=1.1\linewidth]{Q2-dB20-notadapted.png}
+      \label{fig:nonadaptedDB20}
+  \end{subfigure}%
+  \begin{subfigure}[t]{.5\linewidth}
+    \centering
+    \includegraphics[width=1.1\linewidth]{Q2-realZ11-notadapted.png}
+    \label{fig:nonadaptedrealZ11}
+  \end{subfigure}%
+  \caption{$S_{11}$ en DB20 et $Re\{Z_{11}\}$ respectivement}
+  \label{fig:nonadaptedrealZ11-DB20}
+\end{figure}
+
+On peut voir qu'il faut modifier la valeur de $L_S$ pour \'etablir la bonne
+adaptation. En effectuant une simulation param\'etrique avec $L\_S$ en param\`etre
+pour arriver \`a $Re\{Z_{11}\} = 50 \Omega$ en entr\'ee, on a :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[width=0.7\linewidth]{Q2-C-sim-adaptation.png}
+  \caption{Simulation pour arriver \`a $Re\{Z_{11} = 50 \Omega\}$ en entr\'ee }
+  \label{RES11-param-LS}
+\end{center}
+\end{figure}
+
+Ce qui nous donne $L_S = 3.6461 nH$ pour une bonne adaptation.
+
+\clearpage
+
+On reffectue une simulation pour $S_{11}$ en entr\'ee pour Z-smith, DB20 et $Re\{Z_{11}\}$ :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[width=\linewidth]{Q2-S11-Smith-adapted.png}
+  \caption{Abaque de Smith pour $S_{11}$ en entr\'ee pour une bonne adaptation }
+  \label{S11-adapted}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htb]
+  \begin{subfigure}[t]{.5\linewidth}
+      \centering
+      \includegraphics[width=1.1\linewidth]{Q2-dB20-adapted.png}
+      \label{fig:adaptedDB20}
+  \end{subfigure}%
+  \begin{subfigure}[t]{.5\linewidth}
+    \centering
+    \includegraphics[width=1.1\linewidth]{Q2-realZ11-adapted.png}
+    \label{fig:adaptedrealZ11}
+  \end{subfigure}%
+  \caption{$S_{11}$ en DB20 et $Re\{Z_{11}\}$ respectivement, en \'etablissant l'adaptation en entr\'ee}
+  \label{fig:adaptedrealZ11-DB20}
+\end{figure}
+
+\clearpage
+
 \subsection{Polarisation}
+
+On ajoute le transistor $M_3$, $R_{pol}$ ainsi que $R_{RF}$ :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.35]{schema-polarization.png}
+  \caption{Sch\'ema de l'amplificateur faible bruit avec une polarisation non id\'eale}
+  \label{schema-pol}
+\end{center}
+\end{figure}
+
+Pour garder la m\^eme valeur de $V_{OD} = 0.861V$, on effectue une simulation param\'etrique
+pour la valeur de $R_{pol}$, et en regarde la tension \`a l'entr\'ee de $M_{1}$ \textbf{\textcolor{red}{ \{VERIFICATION\}}} :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q3-Rpol-sweep.png}
+  \caption{Simulation en prenant $R_{pol}$ en param\`etre}
+  \label{schema-pol}
+\end{center}
+\end{figure}
+
+On retrouve $R_{pol} = 1.833 k\Omega$ pour $V_{OD} = 0.861V$.
+
+\clearpage
+L'ajout d'un circuit de polarisation a l'effet de modifier l'adaptation en entr\'ee :
+il faut remodifier $L_S$ pour adapter aux changements :
+
+En reffectuant les simulation de $S_{11}$ en entr\'ee, on peut bien v\'erifier l'adaptation
+selon les anciennes valeurs : $db_{20}(S_{11}) = -7.5 db$ et $Re\{S_{11}\} = 50 \Omega$.
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q3-newLs.png}
+  \caption{Valeurs de $S_{11}$ et $Re\{S_{11}\}$ pour une simulation en prenant $L_S$ en param\`etre}
+  \label{newLS}
+\end{center}
+\end{figure}
+
+On retrouve une nouvelle valeur de $L_S$ : $L_S = 3.842 nH$.
+
+\vskip 3 cm
+
 \subsection{Gain}
+En effectue une simulation SP selon 2 ports, pour s'en faire, on ajoute un port \`a la sortie du LNA:
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.30]{schematic_lna_global.png}
+  \caption{Sch\'ema de l'amplificateur faible bruit complet avec un port en sortie}
+  \label{schema-pol}
+\end{center}
+\end{figure}
+
+\clearpage
+
+On effectue une simulation en chechant $S_{21}$ :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q4-S21.png}
+  \caption{Simulation SP de $db_{20} (S_{21})$ en sortie du LNA}
+  \label{schema-pol}
+\end{center}
+\end{figure}
+
+On voit qu'il y a un d\'ecalage en fr\'equence. Celui-ci est due \`a la valeur de $L_L$. 
+
+
+
+\clearpage
+
 \subsection{Adaptation de la partie imaginaire de l'imp\'edance d'entr\'ee du LNA}
 \subsection{Facteur de bruit}
 
