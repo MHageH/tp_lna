@@ -363,7 +363,7 @@ En effectue une simulation SP selon 2 ports, pour s'en faire, on ajoute un port 
 
 \clearpage
 
-On effectue une simulation en chechant $S_{21}$ :
+On effectue une simulation en cherchant $S_{21}$ :
 
 \begin{figure}[!htb]
 \begin{center}
@@ -373,14 +373,118 @@ On effectue une simulation en chechant $S_{21}$ :
 \end{center}
 \end{figure}
 
-On voit qu'il y a un d\'ecalage en fr\'equence. Celui-ci est due \`a la valeur de $L_L$. 
+On voit qu'il y a un d\'ecalage en fr\'equence. Celui-ci est due \`a la valeur de $L_L$.
 
+On cherche $L_L$ pour obtenir une adaptation maximale :
 
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q4-S21-newL_l.png}
+  \caption{Simulation SP de $db_{20} (S_{21})$ en fonction d'une variation $L_L$ }
+  \label{newLL}
+\end{center}
+\end{figure}
 
 \clearpage
 
+Avec cette valeur de $L_L = 3.9706 nH$, on arrive \`a retrouver le $S_{21}$ max :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q4-S21db20-newL_l.png}
+  \caption{Simulation SP de $db_{20} (S_{21})$ pour une bonne valeur de $L_L$}
+  \label{s21-sp-sim-newll}
+\end{center}
+\end{figure}
+
+
+\textbf{\textcolor{red}{truc th\'eorique}}
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q4-GT-GP-db20.png}
+  \caption{Simulation SP de $db_{20}$ ($G_T$) et ($G_P$) }
+  \label{sim-GT-GP}
+\end{center}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q4-Gv-tran.png}
+  \caption{V\'erification du gain en par une simulation transiant}
+  \label{sim-transiant-gv}
+\end{center}
+\end{figure}
+
 \subsection{Adaptation de la partie imaginaire de l'imp\'edance d'entr\'ee du LNA}
+On ajout $L_i$ et on effectue un sweep pour $f=2.45GHz$ en fonction de la valeur de $L_i$
+pour obtenir une valeur o\`u $G_T = G_P$ :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q5-L_i-sweep.png}
+  \caption{Sweep des valeurs de $L_i$ pour arriver \`a $G_T = G_P$}
+  \label{sim-li-sweep}
+\end{center}
+\end{figure}
+
+On retrouve $L_i = 2.7784 nH$.\\
+
+\clearpage
+
+On v\'erifie ce r\'esultat en fonction de la fr\'equence :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q5-GT-GP-db20.png}
+  \caption{Simulation SP de $G_T$ et $G_P$  }
+  \label{sim-li-gt-gp}
+\end{center}
+\end{figure}
+
+On v\'erifie aussi la bonne adaptation (pour $S_{11}$) :
+
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q5-S11-db20.png}
+  \caption{Simulation SP de $G_T$ et $G_P$  }
+  \label{sim-q5}
+\end{center}
+\end{figure}
+
+\clearpage
 \subsection{Facteur de bruit}
+
+Facteur du bruit :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q6-NF-dB10.png}
+  \caption{Simulation en $db_{10}$ du Noise factor}
+  \label{facteur-bruit}
+\end{center}
+\end{figure}
+
+On retrouve que le facteur de bruit c'est $NF= 2.98 dB$ pour $f=2.45GHz$.
+
+
+
+Point de compression \`a 1 db :
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q6-1dB_Compression.png}
+  \caption{Simulation en $db_{10}$ du point de compression 1db}
+  \label{facteur-bruit}
+\end{center}
+\end{figure}
+
+
+
+
 
 \clearpage
 \section*{Conclusion}

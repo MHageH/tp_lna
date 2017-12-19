@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.4.12)  11 DEC 2017 22:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.4.12)  19 DEC 2017 12:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -399,6 +399,9 @@ LaTeX Warning: Label `schema-pol' multiply defined.
 
 LaTeX Warning: Label `schema-pol' multiply defined.
 
+
+LaTeX Warning: Label `facteur-bruit' multiply defined.
+
 )
 \openout1 = `tp_lna.aux'.
 
@@ -636,32 +639,100 @@ File: Q4-S21.png Graphic file (type png)
  <use Q4-S21.png>
 Package pdftex.def Info: Q4-S21.png used on input line 370.
 (pdftex.def)             Requested size: 271.01pt x 203.25749pt.
- [10
 
- <./Q4-S21.png>] [11
+<Q4-S21-newL_l.png, id=169, 602.25pt x 451.6875pt>
+File: Q4-S21-newL_l.png Graphic file (type png)
+ <use Q4-S21-newL_l.png>
+Package pdftex.def Info: Q4-S21-newL_l.png used on input line 382.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+
+[10
+
+ <./Q4-S21.png> <./Q4-S21-newL_l.png>]
+<Q4-S21db20-newL_l.png, id=179, 602.25pt x 451.6875pt>
+File: Q4-S21db20-newL_l.png Graphic file (type png)
+
+<use Q4-S21db20-newL_l.png>
+Package pdftex.def Info: Q4-S21db20-newL_l.png used on input line 394.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+ <Q4-GT-GP-db20.png, id=180, 602.25pt x 451.6875pt>
+File: Q4-GT-GP-db20.png Graphic file (type png)
+
+<use Q4-GT-GP-db20.png>
+Package pdftex.def Info: Q4-GT-GP-db20.png used on input line 405.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+ [11
+
+ <./Q4-S21db20-newL_l.png> <./Q4-GT-GP-db20.png>]
+<Q4-Gv-tran.png, id=189, 602.25pt x 451.6875pt>
+File: Q4-Gv-tran.png Graphic file (type png)
+ <use Q4-Gv-tran.png>
+Package pdftex.def Info: Q4-Gv-tran.png used on input line 415.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+
+<Q5-L_i-sweep.png, id=190, 602.25pt x 451.6875pt>
+File: Q5-L_i-sweep.png Graphic file (type png)
+ <use Q5-L_i-sweep.png>
+Package pdftex.def Info: Q5-L_i-sweep.png used on input line 427.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 433--434
+
+ []
+
+[12
+
+ <./Q4-Gv-tran.png> <./Q5-L_i-sweep.png>]
+<Q5-GT-GP-db20.png, id=199, 602.25pt x 451.6875pt>
+File: Q5-GT-GP-db20.png Graphic file (type png)
+ <use Q5-GT-GP-db20.png>
+Package pdftex.def Info: Q5-GT-GP-db20.png used on input line 441.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+
+<Q5-S11-db20.png, id=200, 602.25pt x 451.6875pt>
+File: Q5-S11-db20.png Graphic file (type png)
+ <use Q5-S11-db20.png>
+Package pdftex.def Info: Q5-S11-db20.png used on input line 452.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+ [13
+
+ <./Q5-GT-GP-db20.png> <./Q5-S11-db20.png>]
+<Q6-NF-dB10.png, id=210, 602.25pt x 451.6875pt>
+File: Q6-NF-dB10.png Graphic file (type png)
+ <use Q6-NF-dB10.png>
+Package pdftex.def Info: Q6-NF-dB10.png used on input line 465.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+
+<Q6-1dB_Compression.png, id=211, 602.25pt x 451.6875pt>
+File: Q6-1dB_Compression.png Graphic file (type png)
+
+<use Q6-1dB_Compression.png>
+Package pdftex.def Info: Q6-1dB_Compression.png used on input line 479.
+(pdftex.def)             Requested size: 271.01pt x 203.25749pt.
+ [14
+
+ <./Q6-NF-dB10.png> <./Q6-1dB_Compression.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 522.
+[15
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 418.
- [12
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 418.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 522.
  (./tp_lna.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 418.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 418.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 522.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 522.
 Package rerunfilecheck Info: File `tp_lna.out' has not changed.
-(rerunfilecheck)             Checksum: 19978D3B64058AFC9130B5BBF92F2584;949.
+(rerunfilecheck)             Checksum: E70AFA7DD48353763D22D22BFCC19306;949.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 418.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 522.
  ) 
 Here is how much of TeX's memory you used:
- 8177 strings out of 495020
- 122240 string characters out of 6181324
- 207374 words of memory out of 5000000
- 11219 multiletter control sequences out of 15000+600000
+ 8242 strings out of 495020
+ 123455 string characters out of 6181324
+ 208050 words of memory out of 5000000
+ 11263 multiletter control sequences out of 15000+600000
  14161 words of font info for 55 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  42i,8n,40p,250b,386s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -680,10 +751,10 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on tp_lna.pdf (12 pages, 865867 bytes).
+Output written on tp_lna.pdf (15 pages, 1206038 bytes).
 PDF statistics:
- 256 PDF objects out of 1000 (max. 8388607)
- 197 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
- 185 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 299 PDF objects out of 1000 (max. 8388607)
+ 218 compressed objects within 3 object streams
+ 61 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
