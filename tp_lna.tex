@@ -78,7 +78,15 @@
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-\vskip 7 cm
+L'amplificateur faible bruit constitue un \'el\'ement essentiel dans de nombreuses architectures
+de recepteurs RF : il constitue normalement le premier bloc dans la cha\^ine de r\'eception et
+doit se caract\'eriser par un faible ``Noise Figure'', ainsi qu'une lin\'earit\'e importante et
+une tol\'erance vis-\`a-vis de la puissance des signaux parasites de fortes puissance en entr\'ee.
+
+On \'etudie donc la topologie cascode du LNA qui est consi\'er\'ee l'une des meilleurs par rapport
+au compromis entre une faible tension Vdd, stabilit\'e et le facteur de bruit NF. L'\'etude sera
+men\'ee sur la bonne adaptation du montage en entr\'ee et sortie, augmentation du gain ainsi
+que la r\'eduction de facteur de bruit.
 
 \section{Conception du LNA - Partie th\'eorique}
 On essaye de concevoir l'amplificateur faible bruit (figure. \ref{lna-ams})
@@ -91,12 +99,12 @@ On essaye de concevoir l'amplificateur faible bruit (figure. \ref{lna-ams})
 \end{center}
 \end{figure}
 
-Le sch\'ema comporte : \textbf{\textcolor{red}{Explication ::}}
+Le sch\'ema comporte :
 \begin{enumerate} \itemsep -3pt
-  \item Circuit de polarization
-  \item Inductance de shock $L_i$
-  \item \'Etage cascode avec l'adaptation
-  \item Circuit r\'esonant parall\`ele RLC
+  \item Circuit de polarisation du transistor $M_1$ pour avoir $I_{DS0}$ voulu
+  \item Inductance de chock $L_i$ pour adapter l'imp\'edance d'entr\'ee.
+  \item \'Etage cascode avec l'adaptation pour augmenter le gain du LNA ainsi de r\'eduire l'effet Miller due \`a la capacit\'e $C_{gd}$ du transistor $M_1$.
+  \item Circuit r\'esonant parall\`ele RLC pour adapter l'imp\'edance en sortie.
 \end{enumerate}
 
 Le LNA doit respecter un cahier de charge bien d\'efini :
@@ -105,7 +113,7 @@ Le LNA doit respecter un cahier de charge bien d\'efini :
   \item $F_0 = 2.45 GHz$
   \item$\gamma = 0.82$
   \item $C_{ox} = 5 \times 10^{-3} pF/\mu m^2 $, $k_n = 80 \mu A/V^2$
-  \item Courant de polarization : $I_{DS0} = 1.5 mA$
+  \item Courant de polarisation : $I_{DS0} = 1.5 mA$
   \item Capacit\'e en sortie $C_L = 1 pF $
   \item $Q_e = 2$
 \end{itemize}
@@ -208,6 +216,7 @@ On fait la simulation DC du transistor tout seul, cela nous donne :
   \label{fig:DCtransistor-simulation}
 \end{figure}
 
+On fait une simulation en faisant varier (sweep) le param\`etre $V_{gs}$ afin de trouver $I_{ds0}$ r\'epondant au cahier des charges.
 On trouve que pour $I_{DS0} = 1.5 mA$ indiqu\'e dans le cahier de charge, on prend
 $V_{gs} = 871.25 mV$.
 
@@ -246,6 +255,7 @@ param\`etres $S_{11}$ en Z-Smith, DB20 et $Re\{Z_{11}\}$.
 \end{center}
 \end{figure}
 
+L'adaptation en entr\'ee n'est pas r\'ealis\'ee, on a $Im\{Zin\}$ non null et $Re\{Zin\}$ diff\'erent de $50 \Omega$.
 \clearpage
 
 \begin{figure}[!htb]
@@ -319,7 +329,7 @@ On ajoute le transistor $M_3$, $R_{pol}$ ainsi que $R_{RF}$ :
 \end{figure}
 
 Pour garder la m\^eme valeur de $V_{OD} = 0.861V$, on effectue une simulation param\'etrique
-pour la valeur de $R_{pol}$, et en regarde la tension \`a l'entr\'ee de $M_{1}$ \textbf{\textcolor{red}{ \{VERIFICATION\}}} :
+pour la valeur de $R_{pol}$, et en regarde la tension \`a l'entr\'ee de $M_{1}$  :
 
 \begin{figure}[!htb]
 \begin{center}
@@ -329,7 +339,10 @@ pour la valeur de $R_{pol}$, et en regarde la tension \`a l'entr\'ee de $M_{1}$ 
 \end{center}
 \end{figure}
 
-On retrouve $R_{pol} = 1.833 k\Omega$ pour $V_{OD} = 0.861V$.
+On retrouve $R_{pol} = 1.833 k\Omega$ pour $V_{OD} = 0.861V$.\\
+Note sur $R_{Rf}$ : La r\'esistance remplace une inductance de choke sachant qu'on n'a pas
+de courant qui passe au niveau des transistors $M_1$ et $M_3$ donc on peut mettre une r\'esistance
+(pas de chute de tension).
 
 \clearpage
 L'ajout d'un circuit de polarisation a l'effet de modifier l'adaptation en entr\'ee :
@@ -375,7 +388,7 @@ On effectue une simulation en cherchant $S_{21}$ :
 
 On voit qu'il y a un d\'ecalage en fr\'equence. Celui-ci est due \`a la valeur de $L_L$.
 
-On cherche $L_L$ pour obtenir une adaptation maximale :
+On cherche $L_L$ pour obtenir une adaptation maximale, en effectuant un sweep sur ses valeurs.
 
 \begin{figure}[!htb]
 \begin{center}
@@ -397,8 +410,35 @@ Avec cette valeur de $L_L = 3.9706 nH$, on arrive \`a retrouver le $S_{21}$ max 
 \end{center}
 \end{figure}
 
+\textbf{Calcul de la valeur de $G_v$(dB)}
 
-\textbf{\textcolor{red}{truc th\'eorique}}
+On a :
+\[
+  S_{21} = \frac{
+    \sqrt{
+      \frac{V^2_{out}}{R_{out}}
+    }
+  }
+  {
+    \sqrt{
+    \frac{V^2_{in}}{R_{in}}
+    }
+  }
+  = \frac{V_{out}}{V_{in}} \frac{\sqrt{\frac{1}{R_{out}}}}{ \sqrt{\frac{1}{R_{in}} } } = \frac{V_{out}}{V_{in}} \sqrt{\frac{R_{in}}{R_{out}} }
+\]
+\[
+\implies 20log(S_{21}) = 20 log(G_v) + 20 log \bigg( \bigg(\frac{R_{in}}{R_{out}}\bigg)^{0.5}\bigg)
+\]
+d'ou
+\[
+G_v\big|_{db} = S_{21}\big|_{db} - 10 log \bigg(\frac{R_{in}}{R_{out}}\bigg)
+\]
+ou m\^eme :
+\[
+G_v\big|_{db} = S_{21}\big|_{db} + 10 log \bigg(\frac{R_{out}}{R_{in}}\bigg)
+\]
+On arrive \`a obtenir : $G_v\big|_{db} = 22.5 dB \implies$ On a une diff\'erence de $26 - 22.5 = 3.45 db$
+
 
 \begin{figure}[!htb]
 \begin{center}
@@ -410,6 +450,18 @@ Avec cette valeur de $L_L = 3.9706 nH$, on arrive \`a retrouver le $S_{21}$ max 
 
 \clearpage
 
+On peut retrouver les expressions de $G_T$ et $G_P$ :
+\begin{equation*}
+Gp\ =\ \frac{P_{L}}{P_{in}} \ =\ \frac{|S_{21} |^{2}\left( 1-|\Gamma _{L} |^{2}\right)}{( 1-S_{22} \Gamma _{L})^{2}\left( 1-|\Gamma _{in} |^{2}\right)}
+\end{equation*}
+et :
+
+\begin{equation*}
+  G_{T} \ =\ \frac{P_{L}}{P_{av}} \ =\ \frac{|S_{21} |^{2}\left( 1-|\Gamma _{L} |^{2}\right)\left( 1-|\Gamma _{S} |^{2}\right)}{|1-\Gamma _{in} \Gamma _{S} |^{2} |1-S_{22} \Gamma _{L} |^{2}}
+\end{equation*}
+
+Quand on est bien adapt\'e en entr\'ee et en sortie, on retrouve $G_T = G_P$.
+
 \begin{figure}[!htb]
 \begin{center}
   \includegraphics[scale=0.45]{Q4-Gv-tran.png}
@@ -418,13 +470,21 @@ Avec cette valeur de $L_L = 3.9706 nH$, on arrive \`a retrouver le $S_{21}$ max 
 \end{center}
 \end{figure}
 
+Pour la simulation transitoire, on met une tension d'entr\'ee $V_{in} = 0.1 V$ de fr\'equence $f = 2.45 GHz$.\\
+On a selon fig. \ref{sim-transiant-gv} , $Vout = 1.3 V$.
+Ce qui implique que :
+\[
+G_V = \frac{V_{out}}{V_{in}} = \frac{1.3}{0.1} = 13
+\]
+d'ou $G_V = 20log(13) = 22.5 dB$.
+
 \subsection{Adaptation de la partie imaginaire de l'imp\'edance d'entr\'ee du LNA}
-On ajout $L_i$ et on effectue un sweep pour $f=2.45GHz$ en fonction de la valeur de $L_i$
+On ajoute $L_i$ et on effectue un sweep pour $f=2.45GHz$ en fonction de la valeur de $L_i$
 pour obtenir une valeur o\`u $G_T = G_P$ :
 
 \begin{figure}[!htb]
 \begin{center}
-  \includegraphics[scale=0.45]{Q5-L_i-sweep.png}
+  \includegraphics[scale=0.35]{Q5-L_i-sweep.png}
   \caption{Sweep des valeurs de $L_i$ pour arriver \`a $G_T = G_P$}
   \label{sim-li-sweep}
 \end{center}
@@ -455,6 +515,10 @@ On v\'erifie aussi la bonne adaptation (pour $S_{11}$) :
 \end{center}
 \end{figure}
 
+Fonction de $L_i$ : Li sert \`a adapter l'entr\'ee en annulant la partie imaginaire de Zin.\\
+Par rapport au $S_{11}$ :  Si on est parfaitement adapt\'e \`a $50 \Omega$  pour $f= 2.45GHz$, $S_{11}$ tends vers
+$-\infty$, il n'y a aucun retour d'onde, toute la puissance est transmise.
+
 \clearpage
 \subsection{Facteur de bruit}
 
@@ -482,8 +546,55 @@ Point de compression \`a 1 db :
 \end{center}
 \end{figure}
 
+On trouve qu'il faut redimensioner le transistor $M_{1}$ pour arriver \`a un NF r\'eduit :
+ $\implies$ On augmente le W \`a 150 $\mu m$.
+
+il faut refaire une adaptation en entr\'ee pour  1.76 dB (Sachant qu'on a augment\'e le W).
+Pour $W = 150 \mu m$, on retrouve $I_{DS0} = 4.519 mA$
+Sachant que :
+\[
+  I_{DS} = \frac{1}{2}{C_{ox}}{\mu_n} \frac{W}{L}(V_{GS} - V_{Th})^2
+\]
+$\implies$ Si $W' = 3W \implies$ $I'_{DS0} = 3I_{DS0} = 3 \times 1.5 mA$
+
+\clearpage
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.40]{Q6-NF-dB10-bigW.png}
+  \caption{Simulation du NF : On arrive \`a un NF r\'eduit pour une fr\'equence plus basse}
+  \label{facteur-bruit}
+\end{center}
+\end{figure}
+
+On effectue une simulation DC operating point pour retrouver la valeur de $I_{DS}$.
+On retrouve bien une valeur de $I_{DS}$ anticip\'ee.
+
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.40]{Q6c-Ids0.png}
+  \caption{Simulation DC}
+  \label{facteur-bruit}
+\end{center}
+\end{figure}
+
+On refait une simulation SP pour v\'erifier le $NF = 1.76dB$  ainsi que les gains GT et GP
+pour $f=2.45 GHz$. On retrouve qu'on est plus adapt\'e en entr\'ee
+pour une valeur diff\'erente de W : il faut refaire l'adaptation, en r\'eglant $L_i$,$L_S$.\\
+On passe \`a $L_i = 6.02 nH$ pour annuler la partie imaginaire de l'imp\'edance en entr\'ee,
+$L_s = 1.68 nH$, pour arriver \`a un $Re\{Z_e\}=50$. \\
+On arrive a une bonne adaptation ainsi qu'un Gain $>$ 6db, mais on est d\'ecaler en fr\'equence,
+on fait une adaptation de $L_L$, en effectuant un sweep de $L_L$ pour retrouver un max de $G_T$
+$\implies L_L = 3.8 nH$.
 
 
+\begin{figure}[!htb]
+\begin{center}
+  \includegraphics[scale=0.45]{Q6c-GTGP-NFdB10.png}
+  \caption{Simulation }
+  \label{facteur-bruit}
+\end{center}
+\end{figure}
 
 
 \clearpage
@@ -491,6 +602,11 @@ Point de compression \`a 1 db :
 \addcontentsline{toc}{section}{Conclusion}
 
 
+Ce TP de conception d'un LNA nous a permis de reprendre quelques \'el\'ements d'adaptation vus en TP1 tout en approfondissant l'\'etude avec
+ des simulations plus avanc\'ees (harmonic balance, simulations de bruit) afin de d\'eterminer le gain, le point de compression et le NF.
+ Nous avons \'egalement pu observer les gains GT et GP afin de d\'eterminer l'adaptation en entr\'ee.
+ 
+Pour la partie diff\'erentielle, nous avons polaris\'e les transistors mais nous n'avons pas pu simuler correctement tout le montage.
 
 
 \addcontentsline{toc}{section}{R\'ef\'erences}

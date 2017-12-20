@@ -10,5 +10,5 @@
 \contentsline {subsection}{\numberline {2.4}Gain}{9}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Adaptation de la partie imaginaire de l'imp\'edance d'entr\'ee du LNA}{12}{subsection.2.5}
 \contentsline {subsection}{\numberline {2.6}Facteur de bruit}{14}{subsection.2.6}
-\contentsline {section}{Conclusion}{15}{section*.25}
-\contentsline {section}{R\'ef\'erences}{15}{section*.25}
+\contentsline {section}{Conclusion}{16}{section*.28}
+\contentsline {section}{R\'ef\'erences}{16}{section*.28}
